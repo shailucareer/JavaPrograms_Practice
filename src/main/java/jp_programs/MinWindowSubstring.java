@@ -8,6 +8,7 @@ import java.util.Map;
 public class MinWindowSubstring {
 
 	/**
+	 * Problem statement:- 
 	 * Min Window Substring Have the function MinWindowSubstring(strArr) take the
 	 * array of strings stored in strArr, which will contain only two strings, the
 	 * first parameter being the string N and the second parameter being a string K
@@ -28,8 +29,29 @@ public class MinWindowSubstring {
 	 * Input: new String[] {"aaffhkksemckelloe", "fhea"} Output: affhkkse
 	 * 
 	 */
+	
+	/**
+	 * Approach/Algorithm/pseudocode
+	 * 
+	 * Solved using "HashMap" and "Two pointer approach"
+	 * 
+	 * For input strings "aabdccdbcacd", "aad"
+	 * 
+	 * First create a KMap for "aad" to hold the unique chars with their counts, such as {a=2,d=1}
+	 * 
+	 * now create two pointers variables leftPointer and rightPointer, set both of them to the first index of the string "aabdccdbcacd"
+	 * 
+	 * Then start moving the right pointer to right till we find the string map which contains the KMap
+	 * 
+	 * Once we find a matching string then move the leftPointer by one position to right and reset the right pointer to equal to left pointer
+	 * 
+	 * keep on doing this till both right pointer and left pointer reaches to the last position in the string "aabdccdbcacd"
+	 * 
+	 * Store the matching strings in a list, then loop through the list to find out the smallest string and return it.
+	 * 
+	 * */
 
-	public static String MinWindowSubstring(String[] strArr) {
+	public static String MinWindowSubs(String[] strArr) {
 
 		String nChars = strArr[0];
 		String kChars = strArr[1];
@@ -56,18 +78,19 @@ public class MinWindowSubstring {
 				rightPointer=leftPointer;
 			}
 			
+			if (rightPointer==nChars.length()) {
+				leftPointer++;
+			}
+		
 			if (rightPointer<nChars.length()) {
 				rightPointer++;
 			}
 			
-			if (rightPointer==nChars.length()) {
-				leftPointer++;
-			}
-			
-			if(leftPointer==nChars.length())
+			if(leftPointer>=nChars.length())
 			break;
 		}
 		
+		//System.out.println(matchingWindows);
 		int length = Integer.MAX_VALUE;
 		String output = "";
 		for (String window : matchingWindows) {
@@ -115,15 +138,26 @@ public class MinWindowSubstring {
 
 	public static void main(String[] args) {
 		// keep this function call here
+		System.out.println("a" + "|" + MinWindowSubs(new String[] {"aaaaaaaaa", "a"}));
 
-		String[] arr1 = { "aabdccdbcacd", "aad" };
-		System.out.println("aabd" + "|" + MinWindowSubstring(arr1));
+		System.out.println("caae" + "|" + MinWindowSubs(new String[] { "caae", "cae" }));
 
-		String[] arr2 = { "ahffaksfajeeubsne", "jefaa" };
-		System.out.println("aksfaje" + "|" + MinWindowSubstring(arr2));
+		System.out.println("aabd" + "|" + MinWindowSubs(new String[]{ "aabdccdbcacd", "aad" }));
 
-		String[] arr3 = { "aaffhkksemckelloe", "fhea" };
-		System.out.println("affhkkse" + "|" + MinWindowSubstring(arr3));
+		System.out.println("aksfaje" + "|" + MinWindowSubs(new String[] { "ahffaksfajeeubsne", "jefaa" }));
+
+		System.out.println("affhkkse" + "|" + MinWindowSubs(new String[] { "aaffhkksemckelloe", "fhea" }));
+		
+		System.out.println("affsf" + "|" + MinWindowSubs(new String[] {"aaffsfsfasfasfasfasfasfacasfafe", "fafsf"}));
+		
+		System.out.println("vvave" + "|" + MinWindowSubs(new String[] {"vvavereveaevafefaef", "vvev"}));
+		
+		System.out.println("caae" + "|" + MinWindowSubs(new String[] {"caae", "cae"}));
+		
+		System.out.println("caabbbbr" + "|" + MinWindowSubs(new String[] {"cccaabbbbrr", "rbac"}));
+
+		System.out.println("affsf" + "|" + MinWindowSubs(new String[] {"aaffsfsfasfasfasfasfasfacasfafe", "fafsf"}));
+		
 	}
 
 }
